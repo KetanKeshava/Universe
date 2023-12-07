@@ -19,6 +19,7 @@ import { useSetRecoilState } from "recoil";
 import authScreenAtom from "../atoms/authAtom";
 import useShowToast from "../hooks/useShowToast";
 import userAtom from "../atoms/userAtom";
+import {useEffect} from 'react';
 
 export default function LoginCard() {
 	const [showPassword, setShowPassword] = useState(false);
@@ -54,24 +55,57 @@ export default function LoginCard() {
 			setLoading(false);
 		}
 	};
+
+	const [backgroundImage, setBackgroundImage] = useState("");
+
+	useEffect(() => {
+	const fetchBackgroundImage = async () => {
+		try {
+		const response = await fetch("https://source.unsplash.com/1600x900/?universe");
+		setBackgroundImage(response.url);
+		} catch (error) {
+		console.error("Error fetching background image", error);
+		}
+	};
+
+	fetchBackgroundImage();
+	}, []);
+
 	return (
+		<Flex
+			align={"center"}
+			justify={"center"}
+			bgImage={`url(${backgroundImage})`}
+			bgSize="cover"
+			bgPosition="center"
+			minH={"100vh"}
+		>
 		<Flex align={"center"} justify={"center"}>
-			<Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-				<Stack align={"center"}>
+		<Stack
+			spacing={8}
+			mx={"auto"}
+			maxW={{ base: "full", sm: "400px", md: "600px", lg: "800px" }}
+			py={12}
+			px={6}
+		>
+				{/* <Stack align={"center"}>
 					<Heading fontSize={"4xl"} textAlign={"center"}>
 						Login
 					</Heading>
-				</Stack>
+				</Stack> */}
 				<Box
 					rounded={"lg"}
 					bg={useColorModeValue("white", "gray.dark")}
 					boxShadow={"lg"}
 					p={8}
-					w={{
-						base: "full",
-						sm: "400px",
-					}}
+					w={{ base: "full", sm: "400px" }} 
 				>
+					<Stack align={"center"}>
+					<Heading fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }} textAlign={"center"}>
+						Login
+					</Heading>
+				</Stack>
+				<br></br>
 					<Stack spacing={4}>
 						<FormControl isRequired>
 							<FormLabel>Username</FormLabel>
@@ -125,6 +159,7 @@ export default function LoginCard() {
 					</Stack>
 				</Box>
 			</Stack>
+		</Flex>
 		</Flex>
 	);
 }
