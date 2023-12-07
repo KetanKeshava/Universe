@@ -34,7 +34,7 @@ const HomePage = () => {
 
 	return (
 		<Flex gap='10' alignItems={"flex-start"}>
-			<Box flex={70}>
+			<Box flex={65}>
 				{!loading && posts.length === 0 && <h1>Follow some users to see the feed</h1>}
 
 				{loading && (
@@ -48,7 +48,7 @@ const HomePage = () => {
 				))}
 			</Box>
 			<Box
-				flex={30}
+				flex={35}
 				display={{
 					base: "none",
 					md: "block",

@@ -19,7 +19,7 @@ const Header = () => {
 	return (
 		<Flex justifyContent={"space-between"} mt={6} mb='12'>
 			{user && (
-				<Link as={RouterLink} to='/'>
+				<Link as={RouterLink} to='/home'>
 					<AiFillHome size={24} />
 				</Link>
 			)}
@@ -32,8 +32,8 @@ const Header = () => {
 			<Image
 				cursor={"pointer"}
 				alt='logo'
-				w={9}
-				src={colorMode === "dark" ? "/favicon.png" : "/favicon.png"}
+				w={7}
+				src={colorMode === "dark" ? "/white-paw.png" : "/black-paw.png"}
 				onClick={toggleColorMode}
 			/>
 

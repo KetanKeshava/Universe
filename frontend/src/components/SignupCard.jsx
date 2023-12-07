@@ -20,6 +20,7 @@ import { useSetRecoilState } from "recoil";
 import authScreenAtom from "../atoms/authAtom";
 import useShowToast from "../hooks/useShowToast";
 import userAtom from "../atoms/userAtom";
+import {useEffect} from 'react';
 
 export default function SignupCard() {
 	const [showPassword, setShowPassword] = useState(false);
@@ -57,15 +58,39 @@ export default function SignupCard() {
 		}
 	};
 
+	const [backgroundImage, setBackgroundImage] = useState("");
+
+	useEffect(() => {
+	const fetchBackgroundImage = async () => {
+		try {
+		const response = await fetch("https://source.unsplash.com/1600x900/?universe");
+		setBackgroundImage(response.url);
+		} catch (error) {
+		console.error("Error fetching background image", error);
+		}
+	};
+
+	fetchBackgroundImage();
+	}, []);
+
 	return (
+		<Flex
+			align={"center"}
+			justify={"center"}
+			bgImage={`url(${backgroundImage})`}
+			bgSize="cover"
+			bgPosition="center"
+			minHeight="100vh"
+		>
 		<Flex align={"center"} justify={"center"}>
 			<Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+				<Box rounded={"lg"} bg={useColorModeValue("white", "gray.dark")} boxShadow={"lg"} p={8}>
 				<Stack align={"center"}>
 					<Heading fontSize={"4xl"} textAlign={"center"}>
 						Sign up
 					</Heading>
 				</Stack>
-				<Box rounded={"lg"} bg={useColorModeValue("white", "gray.dark")} boxShadow={"lg"} p={8}>
+				<br></br>
 					<Stack spacing={4}>
 						<HStack>
 							<Box>
@@ -140,6 +165,7 @@ export default function SignupCard() {
 					</Stack>
 				</Box>
 			</Stack>
+		</Flex>
 		</Flex>
 	);
 }
