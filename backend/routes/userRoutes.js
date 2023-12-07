@@ -9,6 +9,7 @@ import {
 	getSuggestedUsers,
 	freezeAccount,
 	freezeUserAccount,
+	getAllUsers,
 } from "../controllers/userController.js";
 import protectRoute from "../middlewares/protectRoute.js";
 
@@ -23,5 +24,6 @@ router.post("/follow/:id", protectRoute, followUnFollowUser); // Toggle state(fo
 router.put("/update/:id", protectRoute, updateUser);
 router.put("/freeze", protectRoute, freezeAccount);
 router.put("/freezeAccount/:id", protectRoute, freezeUserAccount);
+router.get("/getAll", protectRoute, getAllUsers);
 
 export default router;

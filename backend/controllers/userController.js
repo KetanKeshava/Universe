@@ -1,5 +1,4 @@
-import generateTokenAndSetCookie from "../services/authJwtService.js";
-import { fetchSuggestedUsers, findUserDetailsFromQuery, followOrUnfollowUser, freezeOrUnfreezeUserById, freezeUserById, signInUser, updateUserProfile, userLoginAuth } from "../services/userService.js";
+import { fetchAllUsers, fetchSuggestedUsers, findUserDetailsFromQuery, followOrUnfollowUser, freezeOrUnfreezeUserById, freezeUserById, signInUser, updateUserProfile, userLoginAuth } from "../services/userService.js";
 
 const getUserProfile = async (req, res) => {
 	// fetch user profile either with username or userId
@@ -124,6 +123,15 @@ const freezeUserAccount = async (req, res) => {
 	}
 }
 
+const getAllUsers = async (req, res) => {
+	try {
+		const users = await fetchAllUsers()
+		return res.json(users)
+	} catch (error) {
+		return res.status(500).json({ error: error.message });
+	}
+}
+
 export {
 	signupUser,
 	loginUser,
@@ -134,4 +142,5 @@ export {
 	getSuggestedUsers,
 	freezeAccount,
 	freezeUserAccount,
+	getAllUsers,
 };

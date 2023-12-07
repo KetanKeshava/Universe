@@ -1,4 +1,4 @@
-import { findFollowingUsersById, findUserByEmailOrUsername, findUserById, findUserByUsername, findUserDetailsById, findUserDetailsByUsername, getAllLimitedUserExceptId, saveUser, updateUsersForFollow, updateUsersForUnfollow } from "../db/userRepository.js";
+import { findAllUsers, findFollowingUsersById, findUserByEmailOrUsername, findUserById, findUserByUsername, findUserDetailsById, findUserDetailsByUsername, getAllLimitedUserExceptId, saveUser, updateUsersForFollow, updateUsersForUnfollow } from "../db/userRepository.js";
 import mongoose from "mongoose";
 import { InvalidUserError, UserAccountFrozenError, UserAlreadyExistsError, UserNotFoundError } from "../errors/userErrors.js";
 import User from "../models/userModel.js";
@@ -175,6 +175,10 @@ const updateUserProfile = async (userId, reqId, name, email, username, password,
     return user;
 }
 
+const fetchAllUsers = async() => {
+    return await findAllUsers()
+}
+
 export {
     findUserDetailsFromQuery,
     signInUser,
@@ -184,4 +188,5 @@ export {
     followOrUnfollowUser,
     updateUserProfile,
     freezeOrUnfreezeUserById,
+    fetchAllUsers,
 }

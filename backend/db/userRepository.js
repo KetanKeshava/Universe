@@ -51,6 +51,10 @@ const getAllLimitedUserExceptId = async(userId, limit) => {
     ]);
 }
 
+const findAllUsers = async () => {
+    return await User.find().select("-password")
+}
+
 export {
     findUserDetailsById,
     findUserDetailsByUsername,
@@ -61,5 +65,6 @@ export {
     updateUsersForUnfollow,
     updateUsersForFollow,
     findFollowingUsersById,
-    getAllLimitedUserExceptId
+    getAllLimitedUserExceptId,
+    findAllUsers
 }
