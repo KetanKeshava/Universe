@@ -123,14 +123,14 @@ const freezeAccount = async (req, res) => {
 const freezeUserAccount = async (req, res) => {
 	try {
 		if (!req.user.isAdmin) {
-			throw new InvalidUserError("User is not Admin, deos not have access")
+			throw new InvalidUserError("Admin Access Required")
 		}
 		const id = req.params.id;
 		await freezeOrUnfreezeUserById(id)
 		res.status(200).json({ success: true });
 	} catch (error) {
 		if (error.name == "InvalidUserError") {
-			return res.status(400).json({ error: error.message });
+			return res.status(403).json({ error: error.message });
 		}
 		if (error.name == "UserNotFoundError") {
 			return res.status(404).json({ error: error.message });
@@ -142,13 +142,13 @@ const freezeUserAccount = async (req, res) => {
 const getAllUsers = async (req, res) => {
 	try {
 		if (!req.user.isAdmin) {
-			throw new InvalidUserError("User is not Admin, deos not have access")
+			throw new InvalidUserError("Admin Access Required")
 		}
 		const users = await fetchAllUsers()
 		return res.json(users)
 	} catch (error) {
 		if (error.name == "InvalidUserError") {
-			return res.status(400).json({ error: error.message });
+			return res.status(403).json({ error: error.message });
 		}
 		return res.status(500).json({ error: error.message });
 	}
