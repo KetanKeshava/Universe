@@ -153,13 +153,13 @@ const updateUserProfile = async (userId, reqId, name, email, username, password,
         validateNameField(name)
     }
     if (username != null) {
-        validateUsernameField
+        validateUsernameField(username)
     }
     if (email != null) {
-        validateEmailField
+        validateEmailField(email)
     } 
     if (password != null) {
-        validatePasswordField
+        validatePasswordField(password)
     }
     let user = await findUserById(userId);
     if (!user) {

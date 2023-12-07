@@ -52,10 +52,10 @@ const loginUser = async (req, res) => {
 const logoutUser = (req, res) => {
 	try {
 		res.cookie("jwt", "", { maxAge: 1 });
-		res.status(200).json({ message: "User logged out successfully" });
+		return res.status(200).json({ message: "User logged out successfully" });
 	} catch (err) {
-		res.status(500).json({ error: err.message });
 		console.log("Error in signupUser: ", err.message);
+		return res.status(500).json({ error: err.message });
 	}
 };
 
@@ -68,10 +68,10 @@ const followUnFollowUser = async (req, res) => {
 	} catch (err) {
 		console.log("Error in followUnFollowUser: ", err.message);
 		if (err.name == "InvalidUserError") {
-			res.status(400).json({ error: err.message });
+			return res.status(400).json({ error: err.message });
 		}
 		if (err.name == "UserDoesNotExist") {
-			res.status(404).json({ error: err.message });
+			return res.status(404).json({ error: err.message });
 		}
 		return res.status(500).json({ error: err.message });
 	}
@@ -86,10 +86,10 @@ const updateUser = async (req, res) => {
 		return res.status(200).json(user);
 	} catch (err) {
 		if (err.name == "InvalidUserError" || err.name == "UserInputError") {
-			res.status(400).json({ error: err.message });
+			return res.status(400).json({ error: err.message });
 		}
 		if (err.name == "UserDoesNotExist") {
-			res.status(404).json({ error: err.message });
+			return res.status(404).json({ error: err.message });
 		}
 		console.log("Error in updateUser: ", err.message);
 		return res.status(500).json({ error: err.message });
@@ -101,7 +101,7 @@ const getSuggestedUsers = async (req, res) => {
 		// exclude the current user from suggested users array and exclude users that current user is already following
 		const userId = req.user._id;
 		const suggestedUsers = await fetchSuggestedUsers(userId);
-		res.status(200).json(suggestedUsers);
+		return res.status(200).json(suggestedUsers);
 	} catch (error) {
 		res.status(500).json({ error: error.message });
 	}
@@ -111,10 +111,10 @@ const freezeAccount = async (req, res) => {
 	try {
 		const id = req.user._id;
 		await freezeUserById(id);
-		res.status(200).json({ success: true });
+		return res.status(200).json({ success: true });
 	} catch (error) {
 		if (error.name == "UserNotFoundError") {
-			res.status(404).json({ error: error.message });
+			return res.status(404).json({ error: error.message });
 		}
 		return res.status(500).json({ error: error.message });
 	}
@@ -127,7 +127,7 @@ const freezeUserAccount = async (req, res) => {
 		}
 		const id = req.params.id;
 		await freezeOrUnfreezeUserById(id)
-		res.status(200).json({ success: true });
+		return res.status(200).json({ success: true });
 	} catch (error) {
 		if (error.name == "InvalidUserError") {
 			return res.status(403).json({ error: error.message });
