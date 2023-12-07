@@ -6,6 +6,7 @@ import { generateHash, isPasswordValid } from "./hashService.js";
 import generateTokenAndSetCookie from "./authJwtService.js";
 import { v2 as cloudinary } from "cloudinary";
 import { updatePostwithUserReplies } from "../db/postRepository.js";
+import { validateEmailField, validateNameField, validatePasswordField, validateUsernameField } from "./validation.js";
 
 const findUserDetailsFromQuery = async(query) => {
     let user;
@@ -14,6 +15,7 @@ const findUserDetailsFromQuery = async(query) => {
         user = await findUserDetailsById(query);
     } else {
         // query is username
+        validateUsernameField(query);
         user = await findUserDetailsByUsername(query);
     }
     
@@ -25,6 +27,11 @@ const findUserDetailsFromQuery = async(query) => {
 
 const signInUser = async(name, email, username, password, res) => {
     const user = await findUserByEmailOrUsername(email, username);
+
+    validateNameField(name)
+    validateUsernameField(username)
+    validateEmailField(email)
+    validatePasswordField(password)
 
     if (user) {
         throw new UserAlreadyExistsError();
@@ -56,6 +63,9 @@ const signInUser = async(name, email, username, password, res) => {
 }
 
 const userLoginAuth = async (username, password, res) => {
+    validateUsernameField(username)
+    validatePasswordField(password)
+
     const user = await findUserByUsername(username);
     const hashedPassword = user?.password;
     const isPasswordCorrect = await isPasswordValid(password, hashedPassword);
@@ -139,6 +149,18 @@ const followOrUnfollowUser = async(followUnFollowUserId, currentUserId) => {
 }
 
 const updateUserProfile = async (userId, reqId, name, email, username, password, bio, profilePic) => {
+    if (name != null) {
+        validateNameField(name)
+    }
+    if (username != null) {
+        validateUsernameField
+    }
+    if (email != null) {
+        validateEmailField
+    } 
+    if (password != null) {
+        validatePasswordField
+    }
     let user = await findUserById(userId);
     if (!user) {
         throw new UserNotFoundError();
