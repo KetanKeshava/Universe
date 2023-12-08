@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 import { useRecoilState } from "recoil";
+import { useNavigate } from "react-router-dom";  // Import useNavigate
 import userAtom from "../atoms/userAtom";
 import usePreviewImg from "../hooks/usePreviewImg";
 import useShowToast from "../hooks/useShowToast";
@@ -29,6 +30,7 @@ export default function UpdateProfilePage() {
 	const [updating, setUpdating] = useState(false);
 
 	const showToast = useShowToast();
+	const navigate = useNavigate();  // Initialize useNavigate
 
 	const { handleImageChange, imgUrl } = usePreviewImg();
 
@@ -47,11 +49,13 @@ export default function UpdateProfilePage() {
 			const data = await res.json(); // updated user object
 			if (data.error) {
 				showToast("Error", data.error, "error");
-				return;
-			}
+		} else {
 			showToast("Success", "Profile updated successfully", "success");
 			setUser(data);
 			localStorage.setItem("user-threads", JSON.stringify(data));
+		  	// Redirect the user to the "/home" page
+			  navigate(`/${data.username}`);
+		}
 		} catch (error) {
 			showToast("Error", error, "error");
 		} finally {
