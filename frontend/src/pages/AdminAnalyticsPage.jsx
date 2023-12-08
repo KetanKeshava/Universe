@@ -5,6 +5,7 @@ import Post from "../components/Post";
 import { useRecoilState } from "recoil";
 import postsAtom from "../atoms/postsAtom";
 import SuggestedUsers from "../components/SuggestedUsers";
+import { PieChart, Pie, Cell, Legend, Tooltip } from "recharts";
 
 const AdminAnalyticsPage = () => {
 	const [allUsers, setAllUsers] = useState([]);
@@ -58,13 +59,24 @@ const AdminAnalyticsPage = () => {
     }
   };
 
+  // Prepare data for the pie chart
+  const frozenCount = allUsers.filter((user) => user.isFrozen).length;
+  const activeCount = allUsers.length - frozenCount;
+
+  const pieChartData = [
+    { name: "Frozen", value: frozenCount },
+    { name: "Active", value: activeCount },
+  ];
+
+
   return (
     <Flex direction="column" gap={4} alignItems="stretch">
       {loading ? (
         <Spinner />
       ) : (
-        <Box overflowX="auto">
-          <table style={{ width: "100%" }}>
+        <Flex>
+          <Box overflowX="auto">
+            <table style={{ width: "100%" }}>
             <thead>
               <tr>
                 <th>Name</th>
@@ -100,18 +112,42 @@ const AdminAnalyticsPage = () => {
             </tbody>
           </table>
         <br></br>
-        <Box mt={4}>
+          </Box>
+        </Flex>
+      )}
+      {/* Pie Chart */}
+      <Flex direction={{ base: "column", md: "row" }} justify="space-between" ml={4} mt={4}>
+      <Box>
+            <Text fontSize="lg" fontWeight="bold">Percentage of Frozen Accounts:</Text>
+            <PieChart width={400} height={400}>
+              <Pie
+                dataKey="value"
+                isAnimationActive={false}
+                data={pieChartData}
+                cx={200}
+                cy={200}
+                outerRadius={80}
+                fill="#8884d8"
+                label
+              >
+                {pieChartData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={index === 0 ? "#ff0000" : "#00ff00"} />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </Box>
+          <Box>
             <Text fontSize="lg" fontWeight="bold">Stats:</Text>
             <Text>Total Users: {allUsers.length}</Text>
             <Text>Average Followers: {allUsers.reduce((sum, user) => sum + user.followers.length, 0) / allUsers.length}</Text>
             <Text>Average Following: {allUsers.reduce((sum, user) => sum + user.following.length, 0) / allUsers.length}</Text>
-            <Text>Percentage of Frozen Accounts: {(allUsers.filter((user) => user.isFrozen).length / allUsers.length) * 100}%</Text>
             {allUsers.length > 0 && (
               <Text>Newest User's Name: {allUsers[0].name}, <br></br> Username: {allUsers[0].username}, <br></br> Registered on: {allUsers[0].createdAt}</Text>
             )}
           </Box>
-        </Box>
-      )}
+        </Flex>
       </Flex>
   );
 };
