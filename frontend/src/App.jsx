@@ -11,6 +11,7 @@ import UpdateProfilePage from "./pages/UpdateProfilePage";
 import CreatePost from "./components/CreatePost";
 import ChatPage from "./pages/ChatPage";
 import { SettingsPage } from "./pages/SettingsPage";
+import AdminAnalyticsPage from "./pages/AdminAnalyticsPage";
 function App() {
 	const user = useRecoilValue(userAtom);
 	const { pathname } = useLocation();
@@ -22,6 +23,7 @@ function App() {
 					<Route path='/home' element={user ? <HomePage /> : <Navigate to='/auth' />} />
 					<Route path='/auth' element={!user ? <AuthPage /> : <Navigate to='/home' />} />
 					<Route path='/update' element={user ? <UpdateProfilePage /> : <Navigate to='/auth' />} />
+					<Route path='/admin' element={(user && user.isAdmin) ? <AdminAnalyticsPage/> : <Navigate to='/auth'/>} />
 
 					<Route
 						path='/:username'

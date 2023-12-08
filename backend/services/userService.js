@@ -111,6 +111,7 @@ const freezeOrUnfreezeUserById = async(id) => {
     const freezeState = !user.isFrozen;
     user.isFrozen = freezeState;
     await saveUser(user);
+    return freezeState;
 }
 
 const fetchSuggestedUsers = async(userId) => {
