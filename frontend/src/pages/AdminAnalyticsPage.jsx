@@ -1,4 +1,4 @@
-import { Box, Flex, Spinner, Button } from "@chakra-ui/react";
+import { Box, Flex, Spinner, Button, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import useShowToast from "../hooks/useShowToast";
 import Post from "../components/Post";
@@ -100,23 +100,16 @@ const AdminAnalyticsPage = () => {
             </tbody>
           </table>
         <br></br>
-        <div>Total Users: {allUsers.length}</div> 
-        <div>
-          Average Followers: {allUsers.reduce((sum, user) => sum + user.followers.length, 0) / allUsers.length}
-        </div>
-        <div>
-          Average Following: {allUsers.reduce((sum, user) => sum + user.following.length, 0) / allUsers.length}
-        </div>
-        <div>
-          Percentage of Frozen Accounts: {
-            (allUsers.filter((user) => user.isFrozen).length / allUsers.length) * 100
-          }%
-        </div>
-        {allUsers.length > 0 && (
-          <div>
-            Newest User: {allUsers[0].name}, Username: {allUsers[0].username}, Registered on: {allUsers[0].createdAt}
-          </div>
-        )}
+        <Box mt={4}>
+            <Text fontSize="lg" fontWeight="bold">Stats:</Text>
+            <Text>Total Users: {allUsers.length}</Text>
+            <Text>Average Followers: {allUsers.reduce((sum, user) => sum + user.followers.length, 0) / allUsers.length}</Text>
+            <Text>Average Following: {allUsers.reduce((sum, user) => sum + user.following.length, 0) / allUsers.length}</Text>
+            <Text>Percentage of Frozen Accounts: {(allUsers.filter((user) => user.isFrozen).length / allUsers.length) * 100}%</Text>
+            {allUsers.length > 0 && (
+              <Text>Newest User's Name: {allUsers[0].name}, <br></br> Username: {allUsers[0].username}, <br></br> Registered on: {allUsers[0].createdAt}</Text>
+            )}
+          </Box>
         </Box>
       )}
       </Flex>
