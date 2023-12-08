@@ -34,7 +34,7 @@ function App() {
 									<CreatePost />
 								</>
 							) : (
-								<UserPage />
+								<Navigate to={"/auth"} />
 							)
 						}
 					/>
