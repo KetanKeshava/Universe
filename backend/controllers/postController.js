@@ -144,7 +144,11 @@ const getFeedPosts = async (req, res) => {
 
 		const following = user.following;
 
-		const feedPosts = await Post.find({ postedBy: { $in: following } }).sort({ createdAt: -1 });
+		let feedPosts;
+		feedPosts = req.user.isAdmin
+			? await Post.find().sort({ createdAt: -1 })
+			: await Post.find({ postedBy: { $in: following } }).sort({ createdAt: -1 });
+
 
 		res.status(200).json(feedPosts);
 	} catch (err) {
