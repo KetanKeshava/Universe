@@ -137,6 +137,14 @@ const CreatePost = () => {
 								/>
 							</Flex>
 						)}
+						<br></br>
+						<iframe
+							title="AI Image Generator"
+							src="https://ketankeshav.github.io/AI-Image-Generator/"
+							width="100%"
+							height="400px"
+							frameBorder="0"
+						/>
 					</ModalBody>
 
 					<ModalFooter>
