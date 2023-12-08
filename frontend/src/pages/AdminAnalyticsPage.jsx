@@ -99,6 +99,24 @@ const AdminAnalyticsPage = () => {
                     ))}
             </tbody>
           </table>
+        <br></br>
+        <div>Total Users: {allUsers.length}</div> 
+        <div>
+          Average Followers: {allUsers.reduce((sum, user) => sum + user.followers.length, 0) / allUsers.length}
+        </div>
+        <div>
+          Average Following: {allUsers.reduce((sum, user) => sum + user.following.length, 0) / allUsers.length}
+        </div>
+        <div>
+          Percentage of Frozen Accounts: {
+            (allUsers.filter((user) => user.isFrozen).length / allUsers.length) * 100
+          }%
+        </div>
+        {allUsers.length > 0 && (
+          <div>
+            Newest User: {allUsers[0].name}, Username: {allUsers[0].username}, Registered on: {allUsers[0].createdAt}
+          </div>
+        )}
         </Box>
       )}
       </Flex>
