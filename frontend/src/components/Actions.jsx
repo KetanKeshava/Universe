@@ -145,7 +145,7 @@ const Actions = ({ post }) => {
 					></path>
 				</svg>
 
-				<RepostSVG />
+				{/* <RepostSVG /> */}
 				<ShareSVG />
 			</Flex>
 
