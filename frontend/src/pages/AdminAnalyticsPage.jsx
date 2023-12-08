@@ -52,6 +52,10 @@ const AdminAnalyticsPage = () => {
         getAllUsers();
 	}, [showToast, setAllUsers]);
 
+    const toggleFreeze = (user) => {
+        //call api to toggle freeze with user._id
+    }
+
 	return (
 		<Flex gap='10' alignItems={"flex-start"}>
 			<Box
@@ -62,8 +66,16 @@ const AdminAnalyticsPage = () => {
 				}}
 			>
 				{allUsers.map((user) => (
-                    <p>{user._id}</p>
+                    <div key={user._id}>
+                        <button
+                            style={{ backgroundColor: user.isFrozen ? '#ff0000' : '#00ff00' }}
+                            onClick={() => toggleFreeze(user)}
+                        >
+                            {user._id}
+                        </button>
+                    </div>
                 ))}
+
 			</Box>
 		</Flex>
 	);
