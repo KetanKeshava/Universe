@@ -37,9 +37,22 @@ class UserAccountFrozenError extends Error {
     }
 }
 
+class UserInputError extends Error {
+    constructor(message) {
+        super(message)
+    }
+    get message() {
+        return message
+    }
+    get name() {
+            return "UserInputError"
+    }
+} 
+
 export {
     UserNotFoundError,
     UserAlreadyExistsError,
     InvalidUserError,
-    UserAccountFrozenError
+    UserAccountFrozenError,
+    UserInputError,
 }
