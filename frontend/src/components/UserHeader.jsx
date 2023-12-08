@@ -118,7 +118,7 @@ const UserHeader = ({ user }) => {
 					pb='3'
 					cursor={"pointer"}
 				>
-					<Text fontWeight={"bold"}> Replies</Text>
+					{/* <Text fontWeight={"bold"}> Replies</Text> */}
 				</Flex>
 			</Flex>
 		</VStack>
