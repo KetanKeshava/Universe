@@ -126,8 +126,8 @@ const freezeUserAccount = async (req, res) => {
 			throw new InvalidUserError("Admin Access Required")
 		}
 		const id = req.params.id;
-		await freezeOrUnfreezeUserById(id)
-		return res.status(200).json({ success: true });
+		const isFrozen = await freezeOrUnfreezeUserById(id)
+		return res.status(200).json({ isFrozen: isFrozen });
 	} catch (error) {
 		if (error.name == "InvalidUserError") {
 			return res.status(403).json({ error: error.message });
