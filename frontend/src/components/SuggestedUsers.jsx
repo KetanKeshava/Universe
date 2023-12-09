@@ -2,8 +2,11 @@ import { Box, Flex, Skeleton, SkeletonCircle, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import SuggestedUser from "./SuggestedUser";
 import useShowToast from "../hooks/useShowToast";
+import { useRecoilValue } from "recoil";
+import userAtom from "../atoms/userAtom";
 
 const SuggestedUsers = () => {
+	const user = useRecoilValue(userAtom);
     const [loading, setLoading] = useState(true);
     const [suggestedUsers, setSuggestedUsers] = useState([]);
     const showToast = useShowToast();
@@ -28,6 +31,8 @@ const SuggestedUsers = () => {
     }, [showToast]);
     return (
         <>
+        {!user.isAdmin && (
+                <>
             <Text mb={4} fontWeight={"bold"}>
                 Suggested Users
             </Text>
@@ -52,6 +57,8 @@ const SuggestedUsers = () => {
                         </Flex>
                     ))}
             </Flex>
+            </>
+            )}
             <br></br>
             <Text mb={4} fontWeight={"bold"}>
                 Weather Today

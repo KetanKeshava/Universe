@@ -12,6 +12,8 @@ import CreatePost from "./components/CreatePost";
 import ChatPage from "./pages/ChatPage";
 import { SettingsPage } from "./pages/SettingsPage";
 import AdminAnalyticsPage from "./pages/AdminAnalyticsPage";
+import UniversePage from "./pages/UniversePage";
+
 function App() {
 	const user = useRecoilValue(userAtom);
 	const { pathname } = useLocation();
@@ -20,8 +22,9 @@ function App() {
 			<Container maxW={pathname.match(/^\/(auth)?$/) ? "1550px" : { base: "620px", md: "900px" } }>
 				<Header />
 				<Routes>
-					<Route path='/home' element={user ? <HomePage /> : <Navigate to='/auth' />} />
-					<Route path='/auth' element={!user ? <AuthPage /> : <Navigate to='/home' />} />
+					<Route path='/' element={<UniversePage />} />
+					<Route path='/Home' element={user ? <HomePage /> : <Navigate to='/auth' />} />
+					<Route path='/auth' element={!user ? <AuthPage /> : <Navigate to='/' />} />
 					<Route path='/update' element={user ? <UpdateProfilePage /> : <Navigate to='/auth' />} />
 					<Route path='/admin' element={(user && user.isAdmin) ? <AdminAnalyticsPage/> : <Navigate to='/auth'/>} />
 
@@ -34,13 +37,13 @@ function App() {
 									<CreatePost />
 								</>
 							) : (
-								<UserPage />
+								<Navigate to={"/auth"} />
 							)
 						}
 					/>
 					<Route path='/:username/post/:pid' element={<PostPage />} />
 					<Route path='/chat' element={user ? <ChatPage /> : <Navigate to={"/auth"} />} />
-					<Route path='/settings' element={user ? <SettingsPage /> : <Navigate to={"/auth"} />} />
+					<Route path='/settings' element={user ? <SettingsPage /> : <Navigate to={"/auth"} />} />						
 				</Routes>
 			</Container>
 		</Box>

@@ -4,7 +4,7 @@ import userAtom from "../atoms/userAtom";
 import { AiFillHome } from "react-icons/ai";
 import { RxAvatar } from "react-icons/rx";
 import { Link as RouterLink } from "react-router-dom";
-import { FiLogOut, FiMoon } from "react-icons/fi";
+import { FiLogOut, FiGlobe } from "react-icons/fi";
 import useLogout from "../hooks/useLogout";
 import authScreenAtom from "../atoms/authAtom";
 import { BsFillChatQuoteFill } from "react-icons/bs";
@@ -65,7 +65,7 @@ const Header = () => {
 						<BsFillChatQuoteFill size={20} />
 					</Link>
 					<Link as={RouterLink} to={`/admin`}>
-						<FiMoon size={20} />
+						<FiGlobe size={20} />
 					</Link>
 					<Button size={"xs"} onClick={logout}>
 						<FiLogOut size={20} />
