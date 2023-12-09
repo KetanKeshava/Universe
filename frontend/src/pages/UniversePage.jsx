@@ -18,7 +18,7 @@ function UniversePage({ user }) {
             <Image src="favicon.png" alt="Husky" w="1000px" h="auto" />
           </Box>
 
-          <Box flex="4">
+          <Box flex="8">
             <Heading as="h1" size="xl" textAlign="center" mb={2}>
               Join Husky Community Today
             </Heading>
