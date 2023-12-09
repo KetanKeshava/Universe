@@ -56,6 +56,10 @@ export default function LoginCard() {
 		}
 	};
 
+	const testRegex = (pattern, str) => {
+		return pattern.test(str)
+	}
+
 	const [backgroundImage, setBackgroundImage] = useState("");
 
 	useEffect(() => {
@@ -114,6 +118,11 @@ export default function LoginCard() {
 								value={inputs.username}
 								onChange={(e) => setInputs((inputs) => ({ ...inputs, username: e.target.value }))}
 							/>
+							
+							<Text color="red" fontSize="sm">
+								{inputs.username !== "" ? testRegex(/^[a-zA-Z0-9]{4,20}$/, inputs.username) ? "" : "The username must be 4 to 20 characters long. It can only contain letters (both uppercase and lowercase) and numbers. Special characters and spaces are not allowed." : ""}
+							</Text>		
+							
 						</FormControl>
 						<FormControl isRequired>
 							<FormLabel>Password</FormLabel>
@@ -132,6 +141,11 @@ export default function LoginCard() {
 									</Button>
 								</InputRightElement>
 							</InputGroup>
+
+							<Text color="red" fontSize="sm">
+								{inputs.password !== "" ? testRegex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/, inputs.password) ? "" : "The password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character. It must be at least 8 characters long. Special characters include symbols such as !, @, #, $, etc." : ""}
+							</Text>
+
 						</FormControl>
 						<Stack spacing={10} pt={2}>
 							<Button

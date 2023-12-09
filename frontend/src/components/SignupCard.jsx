@@ -35,6 +35,10 @@ export default function SignupCard() {
 	const showToast = useShowToast();
 	const setUser = useSetRecoilState(userAtom);
 
+	const testRegex = (pattern, str) => {
+		return pattern.test(str)
+	}
+
 	const handleSignup = async () => {
 		try {
 			const res = await fetch("/api/users/signup", {
@@ -84,36 +88,38 @@ export default function SignupCard() {
 		>
 		<Flex align={"center"} justify={"center"}>
 			<Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-				<Box rounded={"lg"} bg={useColorModeValue("white", "gray.dark")} boxShadow={"lg"} p={8}>
+				<Box rounded={"lg"} bg={useColorModeValue("white", "gray.dark")} boxShadow={"lg"} p={8} w={{ base: "full", sm: "400px" }} >
 				<Stack align={"center"}>
 					<Heading fontSize={"4xl"} textAlign={"center"}>
 						Sign up
 					</Heading>
 				</Stack>
 				<br></br>
-					<Stack spacing={4}>
-						<HStack>
-							<Box>
-								<FormControl isRequired>
-									<FormLabel>Full name</FormLabel>
-									<Input
-										type='text'
-										onChange={(e) => setInputs({ ...inputs, name: e.target.value })}
-										value={inputs.name}
-									/>
-								</FormControl>
-							</Box>
-							<Box>
-								<FormControl isRequired>
-									<FormLabel>Username</FormLabel>
-									<Input
-										type='text'
-										onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
-										value={inputs.username}
-									/>
-								</FormControl>
-							</Box>
-						</HStack>
+					<Stack spacing={8}>
+						
+						<FormControl isRequired>
+							<FormLabel>Full name</FormLabel>
+							<Input
+								type='text'
+								onChange={(e) => setInputs({ ...inputs, name: e.target.value })}
+								value={inputs.name}
+							/>
+							<Text color="red" fontSize="sm">
+								{inputs.name !== "" ? testRegex(/^([A-Za-z]+(?: [A-Za-z]+)*)$/, inputs.name) ? "" : "The input should only contain letters (A-Z, a-z) and spaces. Each word must start with a letter. Words can be separated by spaces. Numbers and special characters are not allowed." : ""}
+							</Text>	
+						</FormControl>
+							
+						<FormControl isRequired>
+							<FormLabel>Username</FormLabel>
+							<Input
+								type='text'
+								onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
+								value={inputs.username}
+							/>
+							<Text color="red" fontSize="sm">
+								{inputs.username !== "" ? testRegex(/^[a-zA-Z0-9]{4,20}$/, inputs.username) ? "" : "The username must be 4 to 20 characters long. It can only contain letters (both uppercase and lowercase) and numbers. Special characters and spaces are not allowed." : ""}
+							</Text>	
+						</FormControl>
 						<FormControl isRequired>
 							<FormLabel>Email address</FormLabel>
 							<Input
@@ -121,6 +127,9 @@ export default function SignupCard() {
 								onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
 								value={inputs.email}
 							/>
+							<Text color="red" fontSize="sm">
+								{inputs.email !== "" ? testRegex(/^[A-Za-z0-9._%+-]+@northeastern\.edu$/, inputs.email) ? "" : "Please enter a valid Northeastern University email address. The email address must end with '@northeastern.edu'.Only letters (A-Z, a-z), numbers (0-9), and the following characters are allowed: . _ % + -" : ""}
+							</Text>	
 						</FormControl>
 						<FormControl isRequired>
 							<FormLabel>Password</FormLabel>
@@ -139,6 +148,11 @@ export default function SignupCard() {
 									</Button>
 								</InputRightElement>
 							</InputGroup>
+
+							<Text color="red" fontSize="sm">
+								{inputs.password !== "" ? testRegex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/, inputs.password) ? "" : "The password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character. It must be at least 8 characters long. Special characters include symbols such as !, @, #, $, etc." : ""}
+							</Text>
+
 						</FormControl>
 						<Stack spacing={10} pt={2}>
 							<Button
@@ -167,5 +181,9 @@ export default function SignupCard() {
 			</Stack>
 		</Flex>
 		</Flex>
+
+		
+
+		
 	);
 }
