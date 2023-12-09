@@ -146,7 +146,7 @@ const Actions = ({ post }) => {
 				</svg>
 
 				{/* <RepostSVG /> */}
-				<ShareSVG />
+				{/* <ShareSVG /> */}
 			</Flex>
 
 			<Flex gap={2} alignItems={"center"}>

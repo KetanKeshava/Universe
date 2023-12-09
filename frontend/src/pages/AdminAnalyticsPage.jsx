@@ -98,7 +98,7 @@ const AdminAnalyticsPage = () => {
                     <td>{user.followers.length}</td>
                     <td>{user.following.length}</td>
 
-                    <td style={{ backgroundColor: user.isFrozen ? "#ff0000" : "#00ff00" }}>
+                    <td style={{ backgroundColor: user.isFrozen ? "#ff0000" : "#39B54A" }}>
                       {user.isFrozen ? "Frozen" : "Active"}
                     </td>
                     <td>
@@ -131,7 +131,7 @@ const AdminAnalyticsPage = () => {
                 label
               >
                 {pieChartData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={index === 0 ? "#ff0000" : "#00ff00"} />
+                  <Cell key={`cell-${index}`} fill={index === 0 ? "#F1332E" : "#39B54A"} />
                 ))}
               </Pie>
               <Tooltip />
@@ -144,7 +144,7 @@ const AdminAnalyticsPage = () => {
             <Text>Average Followers: {allUsers.reduce((sum, user) => sum + user.followers.length, 0) / allUsers.length}</Text>
             <Text>Average Following: {allUsers.reduce((sum, user) => sum + user.following.length, 0) / allUsers.length}</Text>
             {allUsers.length > 0 && (
-              <Text>Newest User's Name: {allUsers[0].name}, <br></br> Username: {allUsers[0].username}, <br></br> Registered on: {allUsers[0].createdAt}</Text>
+              <Text>Platform's first User's Name: {allUsers[0].name}, <br></br> Username: {allUsers[0].username}, <br></br> Registered on: {allUsers[0].createdAt}</Text>
             )}
           </Box>
         </Flex>
