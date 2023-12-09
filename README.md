@@ -35,15 +35,19 @@
 18. Docs with Comments, naming convention
 19. MongoDB Database Management, hosted on MongoDB Atlas
 
-## Folder Structure
+
 
 ## Architecture: MERN Stack
+![arch](https://github.com/KetanKeshava/Universe/assets/144740650/88afa712-437f-4b08-80b9-bc0a875696eb)
 
 ## Backend 
+![be](https://github.com/KetanKeshava/Universe/assets/144740650/a5e35c39-6e64-46c0-864a-96e5a30619f2)
 
 ## Frontend
+![fe](https://github.com/KetanKeshava/Universe/assets/144740650/c744579a-9204-4a85-84c5-6fe2937b4e3e)
 
-## Validations
+## Folder Structure
+![folder structure](https://github.com/KetanKeshava/Universe/assets/144740650/1ba7baec-c9a9-42ed-8901-e1ef87931704)
 
 ## Group 14
 Amuktha Vaishnavi Kotamsetty
