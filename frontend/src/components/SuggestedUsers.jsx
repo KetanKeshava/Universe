@@ -65,7 +65,7 @@ const SuggestedUsers = () => {
             </Text>
             <iframe
         title="Weather App"
-        src="https://ketankeshav.github.io/weather-app/"
+        src="https://inspiring-fairy-5e87ee.netlify.app/"
         width="100%"
         height="500px"
         frameBorder="0"
