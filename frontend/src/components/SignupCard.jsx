@@ -21,8 +21,10 @@ import authScreenAtom from "../atoms/authAtom";
 import useShowToast from "../hooks/useShowToast";
 import userAtom from "../atoms/userAtom";
 import {useEffect} from 'react';
+import { useNavigate } from "react-router-dom";
 
 export default function SignupCard() {
+	const navigate = useNavigate();
 	const [showPassword, setShowPassword] = useState(false);
 	const setAuthScreen = useSetRecoilState(authScreenAtom);
 	const [inputs, setInputs] = useState({
@@ -55,8 +57,10 @@ export default function SignupCard() {
 				return;
 			}
 
-			localStorage.setItem("user-threads", JSON.stringify(data));
-			setUser(data);
+			// localStorage.setItem("user-threads", JSON.stringify(data));
+			// setUser(data);
+			setAuthScreen("login")
+			navigate("/auth");
 		} catch (error) {
 			showToast("Error", error, "error");
 		}
