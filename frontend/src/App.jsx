@@ -23,8 +23,8 @@ function App() {
 				<Header />
 				<Routes>
 					<Route path='/' element={<UniversePage />} />
-					<Route path='/Home' element={user ? <HomePage /> : <Navigate to='/auth' />} />
-					<Route path='/auth' element={!user ? <AuthPage /> : <Navigate to='/' />} />
+					<Route path='/home' element={user ? <HomePage /> : <Navigate to='/auth' />} />
+					<Route path='/auth' element={!user ? <AuthPage /> : <Navigate to='/home' />} />
 					<Route path='/update' element={user ? <UpdateProfilePage /> : <Navigate to='/auth' />} />
 					<Route path='/admin' element={(user && user.isAdmin) ? <AdminAnalyticsPage/> : <Navigate to='/auth'/>} />
 
