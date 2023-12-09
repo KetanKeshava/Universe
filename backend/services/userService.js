@@ -47,7 +47,7 @@ const signInUser = async(name, email, username, password, res) => {
     await saveUser(newUser);
 
     if (newUser) {
-        generateTokenAndSetCookie(newUser._id, res);
+        // generateTokenAndSetCookie(newUser._id, res);
         return {
             _id: newUser._id,
             name: newUser.name,
