@@ -1,15 +1,18 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { useSetRecoilState } from "recoil";
 import { Image, ChakraProvider, Container, Flex, Box, Heading, Button, Link, Text, useDisclosure, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, CSSReset } from '@chakra-ui/react';
 import { AiFillHome } from 'react-icons/ai'; 
+import authScreenAtom from "../atoms/authAtom";
 
-function UniversePage({ user, setAuthScreen }) {
+function UniversePage({ user }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+	const setAuthScreen = useSetRecoilState(authScreenAtom);
 
   return (
     <ChakraProvider>
       <CSSReset />
-      <Container maxW='container.lg' py={5} bg='red.600'>
+      <Container maxW='100%' py={5} bg='red.600'>
         <Flex align="center">
           <Box flex="6">
             <Image src="favicon.png" alt="Husky" w="1000px" h="auto" />
@@ -30,7 +33,7 @@ function UniversePage({ user, setAuthScreen }) {
                 </Link>
               )}
               {!user && (
-                <Button as={RouterLink} to={"/auth"} colorScheme="blue" variant="outline" borderRadius='20px' mb={2} color='black'>
+                <Button as={RouterLink} to={"/auth"} onClick={() => setAuthScreen("signup")} colorScheme="blue" variant="outline" borderRadius='20px' mb={2} color='black'>
                   Create an account
                 </Button>
               )}
@@ -63,7 +66,7 @@ function UniversePage({ user, setAuthScreen }) {
                 </DrawerOverlay>
               </Drawer>
               <Text textAlign="center" mt={4}>Already have an account?</Text>
-              <Button as={RouterLink} to={"/auth"} colorScheme="blue" variant="outline" mb={4} borderRadius='20px' color='black'>
+              <Button as={RouterLink} to={"/auth"} onClick={() => setAuthScreen("login")} colorScheme="blue" variant="outline" mb={4} borderRadius='20px' color='black'>
                 Sign In
               </Button>
             </Flex>
